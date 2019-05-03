@@ -1,0 +1,201 @@
+/*
+    DEFAULT GRID LAYOUT - MOBILE FIRST
+*/
+
+/* kick off the grid formatting context by making the body a grid-container*/
+body {
+    margin: 0;
+    display: grid;
+    min-height: 100vh; /* viewport height? for vh?*/
+    /*min-height: 100%;*/
+    min-width: 100%;
+    grid-template-rows: 1fr 90px;/*second row having a fixed height, first row filling the remaining height within the grid */
+    grid-template-columns: 1fr; /*fr:fractional unit*/
+    /* the entries of the grid-template-areas: property are the names of the grid items*/
+    grid-template-areas: "content" /* on mobiles, we just want to see one columm, and two rows*/
+                         "footer"; /* a grid area is bounded by 4 grid lines*/
+                         /*a grid aligns its children along rows. align "content" along a row, "footer" along another*/
+}
+
+/*Every grid item can be assigned to an area within the grid container*/
+/*READ TWICE: every grid item can be assigned to an area within the grid container*/
+.main {
+    background-color: /*purple*/#ff6600 /*cc0066*/;
+    /*let .main class have an area name of "content"*/
+    grid-area: content;
+}
+
+.footer {
+    background-color: #c0392b;
+    /*let .footer class have an area name of "footer"*/
+    grid-area: footer;
+}
+
+.aside {
+    background-color: #b3b3b3 /*7f8c8d*/;
+    /*let .aside class have an area name of "sidebar"*/
+    grid-area: sidebar;
+}
+
+/*
+Hide the icons when on mobile.
+Show them when the app is visited on a larger screen. This is the mobile first approach.
+*/
+.aside i {
+    display: none;
+}
+
+/* main */
+
+img {
+    max-width: 80%;
+    /* the image will never scale up to be larger than its original size (if 100% put here),
+     but properly scale down*/
+}
+
+/*
+Define the grid itself for main__header
+.main__header sets a grid formatting context.
+*/
+.main__header {
+    display: grid;
+    color: rgba(255,255,255,0.9);
+    /*border: 1px solid red;*/
+    grid-template-areas: "img"
+                         "dtls";
+}
+
+/*define the grid areas for main__header for img*/
+.main__header > .img {
+    grid-area: img;
+    /*border: 1px solid red;*/
+}
+/*define the grid areas for main__header for details*/
+.main__header > .details {
+    grid-area: dtls;
+    border: 2px solid black;
+}
+
+/*
+FOOTER
+*/
+
+.footer {
+	display: flex;
+	flex: 0 0 90px;
+	padding: 10px;
+	color: #fff;
+	background-color: black /*rgba(61, 100, 158, .9)*/;
+}
+
+.catty-music-small {
+	display: flex;
+	margin-right: auto;
+}
+
+.catty-music-small img{
+	padding-right: 10px;
+	width: 80px;
+}
+
+.catty-music-controls {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 40%;
+}
+/*END OF FOOTER */
+
+
+/* FLEXBOX
+main__body is a grid item. We could make it a flex container if that was useful.
+For our use case, each direct div child of main__body needs to be flex container.
+This is the div that contains the name of the song, artiste, duration of the song and “catty cloud sync”.
+*/
+.main__body > div {
+    display: flex;
+}
+/*
+and then we split the width amongst the child elements:
+3 values here :: flex-grow | flex-shrink | flex-basis
+https://developer.mozilla.org/fr/docs/Web/CSS/flex
+*/
+.main__body > div p {
+    flex: 0 0 25%;
+}
+
+/*
+    LARGER SCREENS
+*/
+
+/*
+Getting responsive: redefining grid areas with media queries
+Mobile first is simply making default styles those for mobile devices.
+Then you may go ahead to make changes for larger displays via media queries
+*/
+@media only screen and (min-width: 600px) {
+  body {
+    grid-template-columns: 100px 1fr; /*first column with a fixed width of 120px, second column filling the remaining of the grid width*/
+    grid-template-areas: "sidebar content"
+                         "footer footer";
+    }
+    /*making the sidebar a grid container, since it will give access to using grid's alignment features*/
+    .aside {
+      display: grid;
+      justify-items: center;
+      align-items: center;
+    }
+
+    /* show the icons */
+    .aside i {
+      display: block;
+      color: white;
+    }
+
+    .main__header {
+      grid-template-columns: 250px 1fr;
+      grid-template-areas: "img dtls"
+    }
+}
+
+/*
+    MOBILE PHONES
+*/
+
+/*
+Getting responsive: redefining grid areas with media queries
+Mobile first is simply making default styles those for mobile devices.
+Then you may go ahead to make changes for larger displays via media queries
+*/
+@media screen and (max-width: 600px) {
+  .main__header {
+    justify-items: center;
+  }
+
+  .main__header > .details {
+    text-align: center;
+  }
+    /*
+    The paragraphs with the texts, unknown artist, and 2016 . Charts. 100 songs.
+    should be hidden on mobile.
+    Every class .sm--hide will be hidden on mobile.
+    */
+  .sm--hide {
+    display: none;
+  }
+    /*smaller image on mobile*/
+  .img > img {
+    width: 150px;
+  }
+
+ /*
+ FLEXBOX
+ As a general rule of thumb, it is appropriate to use Grid to layout the overall page layout,
+ and Flexbox for inner UI components.
+ A grid item can be a flex container.
+ A flex item can also be a grid container. The latter is frequently used though.
+ */
+  .main__body > div p{
+    flex: 0 0 50%;
+  }
+}
