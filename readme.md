@@ -24,5 +24,5 @@
 
 ## Tutos used
 ```sh
-<a href="https://medium.com/flexbox-and-grids/how-to-efficiently-master-the-css-grid-in-a-jiffy-585d0c213577">Tutorial used to build this Spotify like front end app</a>   
+https://medium.com/flexbox-and-grids/how-to-efficiently-master-the-css-grid-in-a-jiffy-585d0c213577
 ```
